@@ -2,19 +2,17 @@ import React from "react";
 import AudioPlayer from "./AudioPlayer";
 import "../styles/Phonetic.css";
 
-export default function Phonetic(props) {
-  const { audio, text } = props.phonetics;
+const Phonetic = ({ phonetics }) => {
+  const { text, audio } = phonetics;
 
-  if (audio && text) {
-    return (
-      <div className="Phonetic">
-        <div className="audio">
-          <AudioPlayer audioUrl={audio} />
-        </div>
-        <div className="text">{text}</div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-}
+  if (!text && !audio) return null;
+
+  return (
+    <div className="Phonetic">
+      {audio && <AudioPlayer audio={audio} />}
+      {text && <span className="phonetic-text">{text}</span>}
+    </div>
+  );
+};
+
+export default Phonetic;

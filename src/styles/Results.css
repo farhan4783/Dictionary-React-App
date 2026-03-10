@@ -1,12 +1,52 @@
-.Results h2 {
-  color: var(--primary-color);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
+.Results {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
 }
 
-@media (min-width: 768px) {
-  .Results h2 {
+.word-header-section {
+  padding: 30px 40px;
+  text-align: left;
+  border-left: 5px solid var(--accent-color);
+}
+
+.word-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  letter-spacing: -1px;
+}
+
+.word-icon {
+  color: var(--accent-light);
+  font-size: 2.2rem;
+  opacity: 0.8;
+}
+
+.phonetics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.meanings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .word-header-section {
+    padding: 25px 20px;
+  }
+
+  .word-title {
     font-size: 2.5rem;
   }
 }

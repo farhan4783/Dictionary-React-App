@@ -1,42 +1,132 @@
-.Meaning h3 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--primary-color);
+.Meaning {
+  padding: 25px;
+  margin-bottom: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
 }
 
-@media (min-width: 768px) {
-  .Meaning h3 {
-    font-size: 2.25rem;
-  }
+.meaning-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.Meaning hr {
-  margin: 5px 0 15px 0;
-  width: 100%;
-  border: 1px solid var(--secondary-color);
+.header-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
 }
 
-.definition {
-  text-align: left;
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin-top: 25px;
-}
-
-.definition span {
-  font-weight: 700;
-  padding-right: 5px;
-}
-
-.example {
-  font-size: 1rem;
+.part-of-speech-badge {
+  font-size: 1.1rem;
+  font-weight: 600;
   font-style: italic;
-  font-weight: 300;
-  opacity: 0.8;
+  padding: 5px 15px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.pos-noun {
+  background-color: var(--noun-bg);
+  color: var(--noun-text);
+}
+
+.pos-verb {
+  background-color: var(--verb-bg);
+  color: var(--verb-text);
+}
+
+.pos-adj {
+  background-color: var(--adj-bg);
+  color: var(--adj-text);
+}
+
+.pos-adv {
+  background-color: var(--adv-bg);
+  color: var(--adv-text);
+}
+
+.pos-default {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.definitions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.definition-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.definition-text {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.bullet {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  line-height: 1.2rem;
+  font-weight: bold;
+}
+
+.definition-text p {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.example-text {
+  margin-left: 25px;
+  padding-left: 15px;
+  border-left: 3px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  display: flex;
+  gap: 5px;
+}
+
+.quote-mark {
+  color: var(--border-color);
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.syn-ant-container {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 5px;
 }
 
-.example span {
-  font-weight: 500;
-  padding-right: 5px;
+.nym-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nym-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .Meaning {
+    padding: 20px 15px;
+  }
 }

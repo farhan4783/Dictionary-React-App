@@ -1,11 +1,24 @@
-.synonyms {
-  font-size: 1rem;
-  font-weight: 400;
-  text-align: left;
-  margin-top: 15px;
+.Synonyms {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.synonyms span {
-  font-weight: 700;
-  padding-right: 5px;
+.synonym-tag {
+  background: var(--bg-primary);
+  color: var(--success);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  transition: all 0.2s ease;
+}
+
+.synonym-tag:hover {
+  background: rgba(16, 185, 129, 0.1);
+  transform: translateY(-1px);
 }

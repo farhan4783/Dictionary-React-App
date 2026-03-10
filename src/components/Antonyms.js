@@ -3,11 +3,12 @@ import "../styles/Antonyms.css";
 
 const Antonyms = ({ antonyms }) => {
   if (antonyms && antonyms.length > 0) {
-    const antonymsText = antonyms.join(", ");
     return (
-      <div>
-        <span>Antonyms:</span> {antonymsText}
-      </div>
+      <ul className="Antonyms">
+        {antonyms.map((antonym, index) => {
+          return <li key={index} className="antonym-tag">{antonym}</li>;
+        })}
+      </ul>
     );
   } else {
     return null;

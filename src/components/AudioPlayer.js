@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import "../styles/Audio.css";
 
-export default function AudioPlayer(props) {
-  function handleClick() {
-    const audioElement = new window.Audio(props.audioUrl);
-    audioElement.play();
-  }
+const AudioPlayer = ({ audio }) => {
+  const audioRef = useRef(null);
+
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
 
   return (
-    <div className="button">
-      <button
-        data-playing="false"
-        role="switch"
-        aria-checked="false"
-        onClick={handleClick}
-      >
-        <i className="icon fas fa-volume-up"></i>
+    <div className="AudioPlayer">
+      <button className="play-btn" onClick={playAudio} aria-label="Play pronunciation">
+        <FontAwesomeIcon icon={faVolumeUp} />
       </button>
+      <audio ref={audioRef} src={audio}></audio>
     </div>
   );
-}
+};
+
+export default AudioPlayer;

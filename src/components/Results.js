@@ -1,6 +1,8 @@
 import React from "react";
 import Meaning from "./Meaning";
 import Phonetic from "./Phonetic";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import "../styles/Results.css";
 
 const Results = ({ results }) => {
@@ -11,20 +13,24 @@ const Results = ({ results }) => {
   const { word, phonetics, meanings } = results;
 
   return (
-    <div className="Results">
-      <section>
-        <h2>{word}</h2>
-        {phonetics.map((phonetic, index) => (
-          <div key={index}>
-            <Phonetic phonetics={phonetic} />
-          </div>
-        ))}
-      </section>
-      {meanings.map((meaning, index) => (
-        <div key={index}>
-          <Meaning meanings={meaning} />
+    <div className="Results animate-fade-in">
+      <section className="word-header-section glass-panel">
+        <h2 className="word-title">
+          <FontAwesomeIcon icon={faBookOpen} className="word-icon" />
+          {word}
+        </h2>
+        <div className="phonetics-container">
+          {phonetics.filter(p => p.text || p.audio).map((phonetic, index) => (
+            <Phonetic key={index} phonetics={phonetic} />
+          ))}
         </div>
-      ))}
+      </section>
+
+      <div className="meanings-container">
+        {meanings.map((meaning, index) => (
+          <Meaning key={index} meanings={meaning} />
+        ))}
+      </div>
     </div>
   );
 };

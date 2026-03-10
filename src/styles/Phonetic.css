@@ -1,18 +1,24 @@
 .Phonetic {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
+  gap: 12px;
+  background: var(--bg-secondary);
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
 }
 
-.Phonetic .text {
-  opacity: 0.5;
-  font-size: 1.25rem;
-  margin-left: 10px;
+.Phonetic:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
 }
 
-.Phonetic a {
-  margin-right: 15px;
-  text-decoration: none;
+.phonetic-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-family: monospace;
 }

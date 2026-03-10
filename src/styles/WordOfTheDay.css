@@ -1,0 +1,121 @@
+.word-of-the-day {
+    margin: 30px auto;
+    padding: 30px;
+    max-width: 600px;
+    background: var(--glass-bg);
+    border: 1px solid var(--accent-light);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px -10px var(--accent-light);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.word-of-the-day::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--accent-color);
+}
+
+.wotd-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-light);
+    color: var(--accent-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.wotd-word {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
+    letter-spacing: -1px;
+}
+
+.wotd-phonetic {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.wotd-audio-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+}
+
+.wotd-audio-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent-hover);
+}
+
+.wotd-meaning {
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 25px;
+}
+
+.part-of-speech {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.definition {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.wotd-explore-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wotd-explore-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
