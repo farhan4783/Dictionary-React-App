@@ -140,3 +140,35 @@
         display: none;
     }
 }
+
+.sidebar-footer {
+    padding: 20px;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.export-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.export-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}

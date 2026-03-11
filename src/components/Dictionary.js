@@ -5,9 +5,19 @@ import Photos from "./Photos";
 import WordOfTheDay from "./WordOfTheDay";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faStar as faStarSolid, faMicrophone, faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { motion } from 'framer-motion';
 import "../styles/Dictionary.css";
+
+// Speech Recognition Setup
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const mic = SpeechRecognition ? new SpeechRecognition() : null;
+if (mic) {
+  mic.continuous = false;
+  mic.interimResults = false;
+  mic.lang = 'en-US';
+}
 
 const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorite }) => {
   const [keyword, setKeyword] = useState("");
@@ -16,6 +26,7 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
     if (externalKeyword) {
@@ -23,6 +34,49 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
       searchWord(externalKeyword);
     }
   }, [externalKeyword]);
+
+  useEffect(() => {
+    handleListen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isListening]);
+
+  const handleListen = () => {
+    if (!mic) return;
+
+    if (isListening) {
+      mic.start();
+      mic.onend = () => {
+        console.log('continue..');
+        mic.start();
+      };
+    } else {
+      mic.stop();
+      mic.onend = () => {
+        console.log('Stopped Mic on Click');
+      };
+    }
+
+    mic.onstart = () => {
+      console.log('Mics on');
+    };
+
+    mic.onresult = event => {
+      const transcript = Array.from(event.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+      
+      setKeyword(transcript);
+      mic.stop();
+      setIsListening(false);
+      searchWord(transcript); // auto search when done speaking
+    };
+
+    mic.onerror = event => {
+      console.log('Mic Error:', event.error);
+      setIsListening(false);
+    };
+  };
 
   const searchWord = (wordToSearch) => {
     if (!wordToSearch) return;
@@ -82,7 +136,12 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
 
   return (
     <div className="Dictionary">
-      <section className="search-section glass-panel">
+      <motion.section 
+        className="search-section glass-panel"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
+      >
         <form onSubmit={handleSubmit} className="search-form animate-fade-in">
           <div className="search-input-wrapper">
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -95,6 +154,16 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
               placeholder="What word piques your interest?"
               autoFocus={true}
             />
+            {mic && (
+              <button 
+                type="button" 
+                className={`mic-button ${isListening ? 'listening' : ''}`}
+                onClick={() => setIsListening(prevState => !prevState)}
+                title={isListening ? "Stop listening" : "Voice search"}
+              >
+                <FontAwesomeIcon icon={isListening ? faMicrophoneSlash : faMicrophone} />
+              </button>
+            )}
           </div>
           <button type="submit" className="search-button">
             {isSearching ? <span className="loader"></span> : "Search"}
@@ -105,7 +174,7 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
           <span onClick={() => searchWord("ubiquitous")}>ubiquitous</span>,{" "}
           <span onClick={() => searchWord("pragmatic")}>pragmatic</span>...
         </div>
-      </section>
+      </motion.section>
 
       {!results && !error && !isSearching && (
         <WordOfTheDay onSearch={handleWotdExplore} />

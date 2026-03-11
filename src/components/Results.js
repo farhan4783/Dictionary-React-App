@@ -3,6 +3,7 @@ import Meaning from "./Meaning";
 import Phonetic from "./Phonetic";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 import "../styles/Results.css";
 
 const Results = ({ results }) => {
@@ -13,8 +14,17 @@ const Results = ({ results }) => {
   const { word, phonetics, meanings } = results;
 
   return (
-    <div className="Results animate-fade-in">
-      <section className="word-header-section glass-panel">
+    <motion.div 
+      className="Results"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, staggerChildren: 0.2 }}
+    >
+      <motion.section 
+        className="word-header-section glass-panel"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
         <h2 className="word-title">
           <FontAwesomeIcon icon={faBookOpen} className="word-icon" />
           {word}
@@ -24,14 +34,21 @@ const Results = ({ results }) => {
             <Phonetic key={index} phonetics={phonetic} />
           ))}
         </div>
-      </section>
+      </motion.section>
 
       <div className="meanings-container">
         {meanings.map((meaning, index) => (
-          <Meaning key={index} meanings={meaning} />
+          <motion.div 
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.15 + 0.3 }}
+          >
+            <Meaning meanings={meaning} />
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

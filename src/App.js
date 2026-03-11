@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Dictionary from "./components/Dictionary";
 import Sidebar from "./components/Sidebar";
 import ThemeToggle from "./components/ThemeToggle";
+import Quiz from "./components/Quiz";
 import "./App.css";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('dictionary-theme') || 'light');
+  const [isQuizMode, setIsQuizMode] = useState(false);
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem('dictionary-history');
     return saved ? JSON.parse(saved) : [];
@@ -63,16 +65,39 @@ function App() {
         <div className="container">
           <header className="App-header animate-fade-in">
             <h1 className="heading">Lexicon</h1>
-            <p className="subheading">Discover the eloquence of the English language.</p>
+            <p className="subheading">
+              {isQuizMode 
+                ? "Test your knowledge and expand your vocabulary."
+                : "Discover the eloquence of the English language."}
+            </p>
+            
+            <div className="mode-toggle">
+              <button 
+                className={`mode-btn ${!isQuizMode ? 'active' : ''}`}
+                onClick={() => setIsQuizMode(false)}
+              >
+                Dictionary
+              </button>
+              <button 
+                className={`mode-btn ${isQuizMode ? 'active' : ''}`}
+                onClick={() => setIsQuizMode(true)}
+              >
+                Quiz Mode
+              </button>
+            </div>
           </header>
 
           <main>
-            <Dictionary
-              externalKeyword={keywordToSearch}
-              onSearchSuccess={addToHistory}
-              favorites={favorites}
-              toggleFavorite={toggleFavorite}
-            />
+            {isQuizMode ? (
+              <Quiz favorites={favorites} history={history} />
+            ) : (
+              <Dictionary
+                externalKeyword={keywordToSearch}
+                onSearchSuccess={addToHistory}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+              />
+            )}
           </main>
 
           <footer className="mt-5 footer">
