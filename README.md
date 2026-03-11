@@ -2,6 +2,8 @@
 
 The Dictionary App is a web application developed using React.js. It enables users to search for word definitions, synonyms, antonyms, and example sentences. The app offers a user-friendly interface for vocabulary exploration and enrichment, allowing users to enhance their language skills effectively.
 
+![Lexicon Quiz Mode and Sidebar Components](1st.png)
+
 ## Table of Contents
 - [Features](#features)
 - [Technologies & Tools Used](#technologies--tools-used)
