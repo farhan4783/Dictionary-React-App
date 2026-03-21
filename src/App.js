@@ -16,6 +16,17 @@ function App() {
     const saved = localStorage.getItem('dictionary-favorites');
     return saved ? JSON.parse(saved) : [];
   });
+  
+  const [dailyStats, setDailyStats] = useState(() => {
+    const saved = localStorage.getItem('dictionary-daily');
+    const today = new Date().toDateString();
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.date === today) return parsed;
+    }
+    return { date: today, count: 0, words: [] };
+  });
+
   const [keywordToSearch, setKeywordToSearch] = useState("");
 
   useEffect(() => {
@@ -26,11 +37,22 @@ function App() {
     localStorage.setItem('dictionary-favorites', JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    localStorage.setItem('dictionary-daily', JSON.stringify(dailyStats));
+  }, [dailyStats]);
+
   const addToHistory = (word) => {
     if (!word) return;
     setHistory(prev => {
       const newHistory = [word, ...prev.filter(w => w !== word)].slice(0, 20); // Keep last 20
       return newHistory;
+    });
+
+    setDailyStats(prev => {
+      if (!prev.words.includes(word)) {
+        return { ...prev, count: prev.count + 1, words: [...prev.words, word] };
+      }
+      return prev;
     });
   };
 
@@ -55,6 +77,7 @@ function App() {
         history={history}
         favorites={favorites}
         onSelectWord={handleSelectWord}
+        dailyStats={dailyStats}
       />
 
       <div className="main-wrapper">

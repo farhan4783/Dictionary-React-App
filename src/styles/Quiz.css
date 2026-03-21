@@ -27,16 +27,56 @@
 
 .quiz-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 15px;
   padding: 20px 30px;
   border-radius: 16px;
 }
 
-.quiz-header h2 {
+.quiz-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.quiz-header-top h2 {
   margin: 0;
   color: var(--text-primary);
   font-size: 1.5rem;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.congrats-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.trophy-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: bounceBar 1s ease infinite alternate;
+}
+
+.mt-3 {
+  margin-top: 20px;
 }
 
 .score-board {

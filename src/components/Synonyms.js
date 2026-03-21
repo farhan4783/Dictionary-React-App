@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "../styles/Synonyms.css";
 
 const Synonyms = ({ synonyms }) => {
@@ -6,7 +7,16 @@ const Synonyms = ({ synonyms }) => {
     return (
       <ul className="Synonyms">
         {synonyms.map((synonym, index) => {
-          return <li key={index} className="synonym-tag">{synonym}</li>;
+          return (
+            <motion.li 
+              key={index} 
+              className="synonym-tag"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {synonym}
+            </motion.li>
+          );
         })}
       </ul>
     );

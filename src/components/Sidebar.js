@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faHistory, faStar, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faHistory, faStar, faDownload, faUpload, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/Sidebar.css';
 
-const Sidebar = ({ history, favorites, onSelectWord }) => {
+const Sidebar = ({ history, favorites, onSelectWord, dailyStats }) => {
     const [isOpen, setIsOpen] = useState(false);
     const fileInputRef = useRef(null);
 
@@ -48,6 +48,22 @@ const Sidebar = ({ history, favorites, onSelectWord }) => {
 
             <div className={`sidebar glass-panel ${isOpen ? 'open' : ''}`}>
                 <div className="sidebar-content">
+                    <section className="sidebar-section">
+                        <h3>
+                            <FontAwesomeIcon icon={faChartLine} className="section-icon text-accent" />
+                            Daily Progress
+                        </h3>
+                        <div className="daily-stats-card glass-panel">
+                            <div className="stat-circle">
+                                <span>{dailyStats?.count || 0}</span>
+                            </div>
+                            <div className="stat-text">
+                                <strong>Words Explored</strong>
+                                <span>Keep learning!</span>
+                            </div>
+                        </div>
+                    </section>
+
                     <section className="sidebar-section">
                         <h3>
                             <FontAwesomeIcon icon={faStar} className="section-icon text-warning" />

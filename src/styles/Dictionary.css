@@ -52,7 +52,7 @@
 
 .search-input:focus {
   border-color: var(--accent-color);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 3px var(--accent-light);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 20px var(--accent-light);
 }
 
 .search-button {

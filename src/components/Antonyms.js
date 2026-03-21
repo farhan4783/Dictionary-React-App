@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "../styles/Antonyms.css";
 
 const Antonyms = ({ antonyms }) => {
@@ -6,7 +7,16 @@ const Antonyms = ({ antonyms }) => {
     return (
       <ul className="Antonyms">
         {antonyms.map((antonym, index) => {
-          return <li key={index} className="antonym-tag">{antonym}</li>;
+          return (
+            <motion.li 
+              key={index} 
+              className="antonym-tag"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {antonym}
+            </motion.li>
+          );
         })}
       </ul>
     );

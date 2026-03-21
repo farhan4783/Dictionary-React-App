@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Results from "./Results";
 import Photos from "./Photos";
@@ -27,6 +27,19 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
   const [error, setError] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [isListening, setIsListening] = useState(false);
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     if (externalKeyword) {
@@ -146,12 +159,13 @@ const Dictionary = ({ externalKeyword, onSearchSuccess, favorites, toggleFavorit
           <div className="search-input-wrapper">
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
             <input
+              ref={inputRef}
               className="search-input"
               type="search"
               name="keyword"
               onChange={handleKeywordChange}
               value={keyword}
-              placeholder="What word piques your interest?"
+              placeholder="What word piques your interest? (Press '/')"
               autoFocus={true}
             />
             {mic && (

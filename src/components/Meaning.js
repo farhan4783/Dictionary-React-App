@@ -1,6 +1,7 @@
 import React from "react";
 import Synonyms from "./Synonyms";
 import Antonyms from "./Antonyms";
+import { motion } from "framer-motion";
 import "../styles/Meaning.css";
 
 const Meaning = ({ meanings }) => {
@@ -16,6 +17,19 @@ const Meaning = ({ meanings }) => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  };
+
   return (
     <div className="Meaning glass-panel">
       <div className="meaning-header">
@@ -25,10 +39,15 @@ const Meaning = ({ meanings }) => {
         <div className="header-line"></div>
       </div>
 
-      <div className="definitions-list">
+      <motion.div 
+        className="definitions-list"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
         {definitions.map(
           ({ definition, example, synonyms, antonyms }, index) => (
-            <div key={index} className="definition-item">
+            <motion.div key={index} className="definition-item" variants={itemVariants}>
               <div className="definition-text">
                 <span className="bullet">•</span>
                 <p>{definition}</p>
@@ -56,10 +75,10 @@ const Meaning = ({ meanings }) => {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
           )
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

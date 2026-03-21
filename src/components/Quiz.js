@@ -15,6 +15,9 @@ const Quiz = ({ favorites, history }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const TOTAL_QUESTIONS = 5;
+  const progressPercentage = (score.correct / TOTAL_QUESTIONS) * 100;
+
   // Initialize pool combining unique items from favorites and history
   useEffect(() => {
     const combined = [...new Set([...favorites, ...history])];
@@ -69,14 +72,23 @@ const Quiz = ({ favorites, history }) => {
     setSelectedAnswer(opt);
     
     if (opt === currentWord) {
-      setScore(s => ({ ...s, correct: s.correct + 1 }));
-      // Give them a moment to see they got it right, then load next
-      setTimeout(() => {
-        loadNewQuestion();
-      }, 1500);
+      const newCorrect = score.correct + 1;
+      setScore(s => ({ ...s, correct: newCorrect }));
+      
+      if (newCorrect < TOTAL_QUESTIONS) {
+        setTimeout(() => {
+          loadNewQuestion();
+        }, 1500);
+      }
     } else {
       setScore(s => ({ ...s, wrong: s.wrong + 1 }));
     }
+  };
+
+  const resetQuiz = () => {
+    setScore({ correct: 0, wrong: 0 });
+    setSelectedAnswer(null);
+    setCurrentWord(null);
   };
 
   if (questionPool.length < 4) {
@@ -101,19 +113,35 @@ const Quiz = ({ favorites, history }) => {
       transition={{ duration: 0.4 }}
     >
       <div className="quiz-header glass-panel">
-        <h2>Vocabulary Flashcards</h2>
-        <div className="score-board">
-          <span className="score correct">
-             <FontAwesomeIcon icon={faCheckCircle} /> {score.correct}
-          </span>
-          <span className="score wrong">
-             <FontAwesomeIcon icon={faTimesCircle} /> {score.wrong}
-          </span>
+        <div className="quiz-header-top">
+          <h2>Vocabulary Flashcards</h2>
+          <div className="score-board">
+            <span className="score correct">
+               <FontAwesomeIcon icon={faCheckCircle} /> {score.correct}
+            </span>
+            <span className="score wrong">
+               <FontAwesomeIcon icon={faTimesCircle} /> {score.wrong}
+            </span>
+          </div>
+        </div>
+        <div className="progress-container">
+          <div className="progress-bar" style={{ width: `${progressPercentage}%` }}></div>
         </div>
       </div>
 
       <div className="quiz-card glass-panel">
-        {isLoading ? (
+        {score.correct >= TOTAL_QUESTIONS ? (
+          <motion.div 
+            className="congrats-screen"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+          >
+            <div className="trophy-icon">🏆</div>
+            <h2>Quiz Complete!</h2>
+            <p>Outstanding! You scored {score.correct} correct with {score.wrong} mistakes.</p>
+            <button className="quiz-btn primary mt-3" onClick={resetQuiz}>Play Again</button>
+          </motion.div>
+        ) : isLoading ? (
           <div className="loader-container">
             <span className="loader"></span>
             <p>Loading next term...</p>
